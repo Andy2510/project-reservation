@@ -13,7 +13,6 @@
 
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                             <label for="name" class="col-md-4 control-label">Name</label>
-
                             <div class="col-md-6">
                                 <input id="name" type="text" class="form-control" name="name" value="{{ old('name', Auth::user()->name) }}" required autofocus>
 
@@ -155,10 +154,13 @@
                                         <strong>{{ $errors->first('country') }}</strong>
                                     </span>
                                 @endif
-                                  <option value="Lietuva" {{ (old("country") == Auth::user()->country ? "selected":"") }}>Lietuva</option>
-                                  <option value="Latvija" {{ (old("country") == Auth::user()->country ? "selected":"") }}>Latvija</option>
-                                  <option value="Estija" {{ (old("country") == Auth::user()->country ? "selected":"") }}>Estija</option>
-                                  <option value="Baltarusija" {{ (old("country") == Auth::user()->country ? "selected":"") }}>Baltarusija</option>
+                                @foreach ()
+
+                                @endforeach
+                                {{<option value="{{ (old('country', Auth::user()->country ) == 'Lietuva' "selected":"") }}>Lietuva</option>
+                               <option value="Latvija" {{ (old("country") == Auth::user()->country ? "selected":"") }}>Latvija</option>
+                               <option value="Estija" {{ (old("country") == Auth::user()->country ? "selected":"") }}>Estija</option>
+                               <option value="Baltarusija" {{ (old("country") == Auth::user()->country ? "selected":"") }}>Baltarusija</option>}}
                               </select>
                             </div>
                         </div>

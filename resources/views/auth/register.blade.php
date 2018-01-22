@@ -155,10 +155,11 @@
                                         <strong>{{ $errors->first('country') }}</strong>
                                     </span>
                                 @endif
-                                  <option value="Lietuva">Lietuva</option>
-                                  <option value="Latvija">Latvija</option>
-                                  <option value="Estija">Estija</option>
-                                  <option value="Baltarusija">Baltarusija</option>
+                                {{ dd($countries) }}
+                                @foreach ($countries as $country)
+                                  <option value="{{ $user->country_id }}">{{ $user->country }}</option>
+                                @endforeach
+
                               </select>
                             </div>
                         </div>
