@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\Country;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -78,15 +79,15 @@ class RegisterController extends Controller
             'address' => $data['address'],
             'city' => $data['city'],
             'zip' => $data['zip'],
-            'country' => $data['country'],
+            'country_id' => $data['country'],
         ]);
     }
 
     public function showRegistrationForm()
     {
-        $countries = Country::all();
+        $countries = Country::get();
         return view('auth.register', [
-          'countries' => $countries
+          'salys' => $countries
         ]);
 
     }

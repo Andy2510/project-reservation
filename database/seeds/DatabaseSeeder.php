@@ -13,5 +13,9 @@ class DatabaseSeeder extends Seeder
     {
       $this->call('CountriesSeeder');
       $this->command->info('Seeded the countries!');
+
+      $this->call(UserSeeder::class);
+      $this->command->info('Seeded the users!');
+
     }
 }

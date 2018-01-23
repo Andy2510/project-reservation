@@ -8,7 +8,7 @@
                 <div class="panel-heading">Your Info</div>
 
                 <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="">
+                    <form class="form-horizontal" method="POST" action="{{ route('profile_update', Auth::user()->id) }}">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
@@ -27,7 +27,7 @@
                         <div class="form-group{{ $errors->has('surname') ? ' has-error' : '' }}">
                           <label for="name" class="col-md-4 control-label">Surname</label>
                           <div class="col-md-6">
-                              <input id="surname" type="text" class="form-control" name="surname" value="{{ old('surname', Auth::user()->surname) }}" required autofocus>
+                              <input id="surname" type="text" class="form-control" name="surname" value="{{ old('surnAuth::user()->nameame', Auth::user()->surname) }}" required autofocus>
 
                               @if ($errors->has('surname'))
                                   <span class="help-block">
@@ -147,20 +147,21 @@
                             <label for="country" class="col-md-4 control-label">Country</label>
 
                             <div class="col-md-6">
-                                <select id="country" type="text" class="form-control" name="country" value="{{ old('country', Auth::user()->country) }}" required autofocus>
+                                <select id="country" type="text" class="form-control" name="country" required autofocus>
 
                                 @if ($errors->has('country'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('country') }}</strong>
+                                        <strong>{{ $errors->first('country_id') }}</strong>
                                     </span>
                                 @endif
-                                @foreach ()
+                                @foreach ($salys as $country)
+                                  <option value="{{ $country->id }}"
 
+                                    {{ (old("country_id", $country->id) == Auth::user()->country_id ? "selected":"") }}
+
+                                    > {{ $country->name }}</option>
                                 @endforeach
-                                {{<option value="{{ (old('country', Auth::user()->country ) == 'Lietuva' "selected":"") }}>Lietuva</option>
-                               <option value="Latvija" {{ (old("country") == Auth::user()->country ? "selected":"") }}>Latvija</option>
-                               <option value="Estija" {{ (old("country") == Auth::user()->country ? "selected":"") }}>Estija</option>
-                               <option value="Baltarusija" {{ (old("country") == Auth::user()->country ? "selected":"") }}>Baltarusija</option>}}
+
                               </select>
                             </div>
                         </div>

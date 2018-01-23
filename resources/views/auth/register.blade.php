@@ -155,14 +155,13 @@
                                         <strong>{{ $errors->first('country') }}</strong>
                                     </span>
                                 @endif
-                                {{ dd($countries) }}
-                                @foreach ($countries as $country)
-                                  <option value="{{ $user->country_id }}">{{ $user->country }}</option>
+                                @foreach ($salys as $country)
+                                  <option value="{{ $country->id }}">{{ $country->name }}</option>
                                 @endforeach
-
                               </select>
                             </div>
                         </div>
+                        {{-- {{ dd($countries) }} --}}
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
