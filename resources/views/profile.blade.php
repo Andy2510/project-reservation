@@ -143,21 +143,16 @@
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('country') ? ' has-error' : '' }}">
+                        <div class="form-group">
                             <label for="country" class="col-md-4 control-label">Country</label>
 
                             <div class="col-md-6">
                                 <select id="country" type="text" class="form-control" name="country" required autofocus>
 
-                                @if ($errors->has('country'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('country_id') }}</strong>
-                                    </span>
-                                @endif
-                                @foreach ($salys as $country)
+                                  @foreach ($salys as $country)
                                   <option value="{{ $country->id }}"
 
-                                    {{ (old("country_id", $country->id) == Auth::user()->country_id ? "selected":"") }}
+                                    {{ ($country->id == Auth::user()->country_id ? "selected":"") }}
 
                                     > {{ $country->name }}</option>
                                 @endforeach
