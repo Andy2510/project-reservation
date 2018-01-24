@@ -91,7 +91,7 @@ class ProfileController extends Controller
           'zip' => $post['zip'],
           'country_id' => $post['country'],
         ];
-        
+
         $user->update($post);
         return redirect()->to('/home');
     }

@@ -14,8 +14,6 @@ class UsersCountriesRelation extends Migration
     public function up()
     {
       Schema::table('users', function (Blueprint $table) {
-        $table->dropColumn('country');
-        $table->integer('country_id')->unsigned();
         $table->foreign('country_id')->references('id')->on('countries');
       });
     }
@@ -29,9 +27,7 @@ class UsersCountriesRelation extends Migration
     {
       Schema::table('users', function (Blueprint $table){
         $table->dropForeign('country_id');
-        $table->dropColumn('country_id');
-        $table->string('country');
-
+  
     });
   }
 }

@@ -20,8 +20,7 @@ class UpdateUsersTable extends Migration
         $table->string('address');
         $table->string('city');
         $table->string('zip');
-        $table->string('country');
-
+        $table->integer('country_id')->unsigned();
       });
     }
 
@@ -33,13 +32,13 @@ class UpdateUsersTable extends Migration
     public function down()
     {
       Schema::table('users', function (Blueprint $table) {
-        $table->dropColumn('surname');
-        $table->dropColumn('date_of_birth');
-        $table->dropColumn('phone');
-        $table->dropColumn('address');
-        $table->dropColumn('city');
+        $table->dropColumn('country_id');
         $table->dropColumn('zip');
-        $table->dropColumn('country');
+        $table->dropColumn('city');
+        $table->dropColumn('address');
+        $table->dropColumn('phone');
+        $table->dropColumn('date_of_birth');
+        $table->dropColumn('surname');
 
       });
     }

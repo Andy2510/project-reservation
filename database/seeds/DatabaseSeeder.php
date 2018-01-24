@@ -14,8 +14,11 @@ class DatabaseSeeder extends Seeder
       $this->call('CountriesSeeder');
       $this->command->info('Seeded the countries!');
 
-      $this->call(UserSeeder::class);
+      $this->call('UserSeeder');
       $this->command->info('Seeded the users!');
+
+      $this->call('DishSeeder');
+      $this->command->info('Seeded the dishes!');
 
     }
 }

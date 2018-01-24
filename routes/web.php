@@ -21,3 +21,4 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/profile', 'ProfileController@edit')->name('profile');
 Route::post('/profile_update/{id}', 'ProfileController@update')->name('profile_update');
+Route::get('/index', 'DishesController@index')->name('index');
