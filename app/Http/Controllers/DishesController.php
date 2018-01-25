@@ -12,6 +12,12 @@ class DishesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+     public function __construct() {
+        // $this->middleware('auth')->except('index');
+         $this->middleware('isAdmin')->except('index', 'show');
+     }
+
     public function index()
     {
         $dishes = Dish::get();
@@ -27,7 +33,7 @@ class DishesController extends Controller
      */
     public function create()
     {
-        //
+        return view('createDish');
     }
 
     /**
@@ -38,7 +44,11 @@ class DishesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      $this->validator($request);
+      $post = $request->except('_token');
+      Dish::create($post);
+      return redirect()->route('index');
+
     }
 
     /**
@@ -58,9 +68,9 @@ class DishesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit()
     {
-        //
+        return (view('dishEdit'));
     }
 
     /**
@@ -84,5 +94,14 @@ class DishesController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    protected function validator($data)
+    {
+        return $data->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string|max:255',
+            'price' => 'required|string|max:255',
+          ]);
     }
 }

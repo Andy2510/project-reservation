@@ -39,4 +39,10 @@ class User extends Authenticatable
     public function country(){
       return $this->hasOne('App\Country');
     }
+
+    public function isAdmin()
+    {
+
+    return $this->is_admin; // this looks for an admin column in your users table
+    }
 }

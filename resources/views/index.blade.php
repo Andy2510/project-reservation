@@ -1,6 +1,6 @@
-<!-- @extends('layouts.app') -->
+@extends('layouts.app')
 
-<!DOCTYPE html>
+{{-- <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
 
   <head>
@@ -49,7 +49,7 @@
           </ul>
         </div>
       </div>
-    </nav>
+    </nav> --}}
 
     <!-- Page Content -->
     <div class="container">
@@ -108,7 +108,7 @@
     </div>
     <!-- /.container -->
 
-    <!-- Footer -->
+    {{-- <!-- Footer -->
     <footer class="py-5 bg-dark">
       <div class="container">
         <p class="m-0 text-center text-white">Restoranas 'Atgaiva' &copy; 2017</p>
@@ -122,4 +122,4 @@
 
   </body>
 
-</html>
+</html> --}}

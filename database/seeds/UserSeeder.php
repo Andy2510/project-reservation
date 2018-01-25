@@ -28,6 +28,7 @@ class UserSeeder extends Seeder
           $user->city = $faker->city;
           $user->zip = $faker->postcode;
           $user->country_id = $faker->numberBetween($min = 31, $max = 32);
+          $user->is_admin = $faker->boolean;
           $user->save();
         }
 

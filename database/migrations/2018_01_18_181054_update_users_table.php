@@ -21,6 +21,7 @@ class UpdateUsersTable extends Migration
         $table->string('city');
         $table->string('zip');
         $table->integer('country_id')->unsigned();
+        $table->boolean('is_admin');
       });
     }
 
@@ -32,6 +33,7 @@ class UpdateUsersTable extends Migration
     public function down()
     {
       Schema::table('users', function (Blueprint $table) {
+        $table->dropColumn('is_admin');
         $table->dropColumn('country_id');
         $table->dropColumn('zip');
         $table->dropColumn('city');
