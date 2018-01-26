@@ -71,11 +71,47 @@
               <h5>{{ $dish->price}}</h5>
             </div>
             <div class="card-footer">
-              <a href="#" class="btn btn-primary">Uzsakyti</a>
+                <form class="" action="{{ route('addToCart') }}" method="post" >
+                  {{ csrf_field() }}
+                    <input type="hidden" name="dish_id" value="{{ $dish->id }}">
+                    <button  type="submit" class="btn btn-primary add-dish" >Uzsakyti</button>
+                </form>
             </div>
           </div>
         </div>
+
+
   @endforeach
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="
+    crossorigin="anonymous"></script>
+  <script type="text/javascript">
+
+      $(document).ready(function(){
+        $('.add-dish').on('click', function(e){
+          e.preventDefault(); //sustabdo ivyki
+          var form = $(this).parent();
+          console.log(form.serialize());
+
+          $.ajax({
+              url: form.attr('action'),
+              method: "POST",
+              data: form.serialize(),
+              success: function(data){
+                var parsed = JSON.parse(data);
+                console.log(parsed);
+              },
+              error: function(msg){
+                console.log(msg.responseText);
+                $('html').prepend(msg.responseText);
+              }
+          })
+        });
+      });
+
+  </script>
+
+
       <!-- /.row -->
       </div>
 
