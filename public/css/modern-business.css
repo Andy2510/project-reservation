@@ -13,6 +13,9 @@ body {
     padding-top: 56px;
   }
 }
+.h-50 {
+  height: 50px;
+}
 
 .carousel-item {
   height: 65vh;

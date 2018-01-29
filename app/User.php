@@ -36,7 +36,7 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function country(){
+    public function country() {
       return $this->hasOne('App\Country');
     }
 

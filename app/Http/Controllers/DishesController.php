@@ -4,18 +4,23 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Dish;
+use App\Helpers\PhotoHelper;
 
 class DishesController extends Controller
 {
+
+      private $photoHelper;
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
 
-     public function __construct() {
+     public function __construct(PhotoHelper $photoHelper) {
         // $this->middleware('auth')->except('index');
          $this->middleware('isAdmin')->except('index', 'show');
+         $this->photoHelper = $photoHelper;
      }
 
     public function index()
@@ -55,6 +60,7 @@ class DishesController extends Controller
       ];
 
       Dish::create($post);
+    
       return redirect()->route('index');
 
     }

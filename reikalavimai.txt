@@ -1,3 +1,15 @@
+Reikia padaryti:
+Virsutiniame meniu reikia log-out opcijos in menu dropdown
+dish'u editas (kiekvienam dish`ui - atskiras puslapis)
+Login redirects to Orders menu page (nepadarytas)
+Logout redirects user to Dishes menu page (nepadarytas)
+
+Admin panelis:
+
+
+
+
+
 PRO - TASK: Restaurant application
 Task
 Create restaurant table reservation and online meal shop application using Laravel. Application must have 3 types of users: unregistered user, registered user, administrator.

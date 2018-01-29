@@ -58,11 +58,12 @@
 
       <!-- Portfolio Section -->
       <div class="row">
-  @foreach ($dishes as $dish)
 
+
+@foreach ($dishes as $dish)
         <div class="col-lg-4 col-sm-6 portfolio-item">
-          <div class="card h-100">
-            <a href="#"><img class="card-img-top" src="{{ $dish->imageUrl }}" alt=""></a>
+          <div class="card h-50">
+            <a href="#"><img class="card-img-top" src="{{ $dish->url }}" alt=""></a>
             <div class="card-body">
               <h4 class="card-title">
                 <a href="#">{{ $dish->title }}</a>
@@ -74,14 +75,13 @@
                 <form class="" action="{{ route('addToCart') }}" method="post" >
                   {{ csrf_field() }}
                     <input type="hidden" name="dish_id" value="{{ $dish->id }}">
-                    <button  type="submit" class="btn btn-primary add-dish" >Uzsakyti</button>
+                    <button type="submit" class="btn btn-primary add-dish">Order</button>
                 </form>
             </div>
           </div>
         </div>
+@endforeach
 
-
-  @endforeach
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
     integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="
     crossorigin="anonymous"></script>
@@ -110,8 +110,6 @@
       });
 
   </script>
-
-
       <!-- /.row -->
       </div>
 
@@ -121,7 +119,7 @@
         <li class="page-item">
           <a class="page-link" href="#" aria-label="Previous">
             <span aria-hidden="true">&laquo;</span>
-            <span class="sr-only">Atgal</span>
+            <span class="sr-only">Previous</span>
           </a>
         </li>
         <li class="page-item">
@@ -136,7 +134,7 @@
         <li class="page-item">
           <a class="page-link" href="#" aria-label="Next">
             <span aria-hidden="true">&raquo;</span>
-            <span class="sr-only">Pirmyn</span>
+            <span class="sr-only">Next</span>
           </a>
         </li>
       </ul>

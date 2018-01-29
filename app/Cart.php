@@ -9,7 +9,5 @@ class Cart extends Model
     protected $fillable = [
       'token',
       'dish_id',
-
-
     ];
 }
