@@ -45,7 +45,15 @@ class DishesController extends Controller
     public function store(Request $request)
     {
       $this->validator($request);
-      $post = $request->except('_token');
+      $path = $request->file('imageUrl')->storePublicly('public/photos');
+
+      $post = [
+        'title' => $request->get('title'),
+        'description' => $request->get('description'),
+        'price' => $request->get('price'),
+        'imageUrl' => $path
+      ];
+
       Dish::create($post);
       return redirect()->route('index');
 
@@ -102,6 +110,7 @@ class DishesController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'required|string|max:255',
             'price' => 'required|string|max:255',
+            'imageUrl' => 'required|mimes:jpeg,bmp,png|max:6000'
           ]);
     }
 }
