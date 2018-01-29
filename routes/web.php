@@ -26,3 +26,5 @@ Route::get('/editDish/{id}', 'DishesController@edit')->name('dish_edit');
 Route::get('/createDish', 'DishesController@create')->name('dish_create');
 Route::post('/storeDish', 'DishesController@store')->name('dish_store');
 Route::post('/addToCart', 'CartController@store')->name('addToCart');
+Route::get('/deleteDish/{id}', 'DishesController@destroy')->name('destroy');
+Route::post('/updateDish/{id}', 'DishesController@update')->name('dish_update');

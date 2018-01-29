@@ -26,6 +26,7 @@ class DishesController extends Controller
     public function index()
     {
         $dishes = Dish::get();
+
         return view('index', [
             'dishes' => $dishes
         ]);
@@ -60,7 +61,7 @@ class DishesController extends Controller
       ];
 
       Dish::create($post);
-    
+
       return redirect()->route('index');
 
     }
@@ -82,9 +83,13 @@ class DishesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit()
+    public function edit($id)
     {
-        return (view('dishEdit'));
+        $dish = Dish::findOrFail($id);
+        return view('dishEdit', [
+          'dish' => $dish
+        ]);
+
     }
 
     /**
@@ -96,7 +101,12 @@ class DishesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+      $this->validator($request);
+
+      $dish = Dish::findOrFail($id);
+      $post = $request->except('_token');
+      $dish->update($post);
+      return redirect()->to('/index');
     }
 
     /**
@@ -107,7 +117,18 @@ class DishesController extends Controller
      */
     public function destroy($id)
     {
-        //
+      $dish = Dish::findOrFail($id);
+      $this->deletePhotoFromFS($dish);
+      $dish->delete();
+      return redirect()->route('index');
+    }
+
+    public function deletePhotoFromFS($dish) {
+      $path = storage_path('app/' . $dish->imageUrl);
+
+      if (file_exists($path)){
+          unlink($path);
+      }
     }
 
     protected function validator($data)

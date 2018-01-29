@@ -4,7 +4,7 @@
 <div class="container">
   <div class="row">
       <div class="col-lg-8 mb-4">
-        <h3>Send us a Message</h3>
+        <h3>Create new dish</h3>
         <form name="sentMessage" id="contactForm" novalidate method="POST" action="{{ route('dish_store') }}" enctype="multipart/form-data">
             {{ csrf_field() }}
 

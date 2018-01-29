@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 {{-- <!DOCTYPE html>
+
 <html lang="{{ app()->getLocale() }}">
 
   <head>
@@ -76,11 +77,31 @@
                   {{ csrf_field() }}
                     <input type="hidden" name="dish_id" value="{{ $dish->id }}">
                     <button type="submit" class="btn btn-primary add-dish">Order</button>
+
+              @if (Auth::user()->isAdmin())
+                    <a href="{{ route('destroy', $dish->id) }}" class="btn btn-danger" role="button">Delete</a>
+                    <a href="{{ route('dish_edit', $dish->id) }}" class="btn btn-info" role="button">Edit</a>
+              @endif
+
                 </form>
             </div>
           </div>
         </div>
 @endforeach
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-4 col-sm-6">
+
+      @if (Auth::user()->isAdmin())
+      <a href="{{ route('dish_create') }}" class="btn btn-info" role="button">Insert new dish</a>
+      @endif
+
+    </div>
+
+  </div>
+
+</div>
 
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
     integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="
