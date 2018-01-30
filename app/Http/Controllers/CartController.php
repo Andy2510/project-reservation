@@ -52,7 +52,9 @@ class CartController extends Controller
 
       $cart->price = $dish->price;
 
+
       echo json_encode($cart);
+
 
     }
 
@@ -62,9 +64,9 @@ class CartController extends Controller
      * @param  \App\Cart  $cart
      * @return \Illuminate\Http\Response
      */
-    public function show(Cart $cart)
+    public function show()
     {
-        //
+        return view('cart');
     }
 
     /**

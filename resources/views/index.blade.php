@@ -24,17 +24,17 @@
               <h5>{{ $dish->price}}</h5>
             </div>
             <div class="card-footer">
-                <form class="" action="{{ route('addToCart') }}" method="post" >
+                <form method="POST" action="{{ route('addToCart') }}">
                   {{ csrf_field() }}
                     <input type="hidden" name="dish_id" value="{{ $dish->id }}">
                     <button type="submit" class="btn btn-primary add-dish">Order</button>
-
+                </form>
               @if (Auth::check() && Auth::user()->isAdmin())
                     <a href="{{ route('destroy', $dish->id) }}" class="btn btn-danger" role="button">Delete</a>
                     <a href="{{ route('dish_edit', $dish->id) }}" class="btn btn-info" role="button">Edit</a>
               @endif
 
-                </form>
+
             </div>
           </div>
         </div>
@@ -83,30 +83,53 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
       integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="
       crossorigin="anonymous"></script>
-    <script type="text/javascript">
+      <script type="text/javascript">
+      $(document).ready(function(){
 
-        $(document).ready(function(){
           $('.add-dish').on('click', function(e){
-            e.preventDefault(); //sustabdo ivyki
-            var form = $(this).parent();
-            console.log(form.serialize());
 
-            $.ajax({
-                url: form.attr('action'),
-                method: "POST",
-                data: form.serialize(),
-                success: function(data){
-                  var parsed = JSON.parse(data);
-                  console.log(parsed);
-                },
-                error: function(msg){
-                  console.log(msg.responseText);
-                      </div>$('html').prepend(msg.responseText);
-                }
-            })
+              //console.log('clicked cart');
+
+              e.preventDefault();
+
+              var form = $(this).parent();
+              console.log(form);
+
+
+              $.ajax({
+                  url: form.attr('action'),
+                  method: 'POST',
+                  data: form.serialize(),
+                  success: function(data){
+
+
+                      data = JSON.parse(data);
+
+                      var cartTotal = $('#cart .cart-total'),
+
+                          cartSize = $('#cart .cart-size'),
+                          currentPrice = cartTotal.text(),
+                          currentSize = cartSize.text(),
+                          totalPrice = (currentPrice*1) + (data.price * 1),
+                          totalSize = (currentSize*1) + 1;
+                          cartTotal.text(totalPrice.toFixed(2));
+                          cartSize.text(totalSize);
+
+                      console.log(data);
+                  },
+                  error: function(msg){
+                      console.log(msg.responseText);
+                      $('html').prepend(msg.responseText);
+                  }
+              })
+
+              /* form.ajaxForm({
+                  url: form.attr('action'),
+                  type: 'post'
+              }); */
           });
-        });
 
-    </script>
+      });
+      </script>
 @endsection
     <!-- /.container -->
