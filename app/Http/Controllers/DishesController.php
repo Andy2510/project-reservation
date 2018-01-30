@@ -103,8 +103,17 @@ class DishesController extends Controller
     {
       $this->validator($request);
 
+      $path = $request->file('imageUrl')->storePublicly('public/photos');
+
+      $post = [
+        'title' => $request->get('title'),
+        'description' => $request->get('description'),
+        'price' => $request->get('price'),
+        'imageUrl' => $path
+      ];
+
       $dish = Dish::findOrFail($id);
-      $post = $request->except('_token');
+      $this->deletePhotoFromFS($dish);
       $dish->update($post);
       return redirect()->to('/index');
     }

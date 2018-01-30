@@ -66,6 +66,8 @@
         </div>
       </div>
     </nav>
+    <!-- Page Content -->
+    <div class="container">
 
     @yield('content')
   </div>
@@ -79,7 +81,7 @@
     </footer>
 
     <!-- Bootstrap core JavaScript -->
-    <script src="{{ asset('jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('js/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
   </body>
