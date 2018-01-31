@@ -21,4 +21,8 @@ public function getUrlAttribute()
   return $photoHelper->generateUrl($this);
 }
 
+public function carts() {
+  return $this->hasMany('App\Cart');
+}
+
 }

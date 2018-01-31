@@ -9,8 +9,6 @@
       <!-- Portfolio Section -->
       <div class="row">
 
-
-
 @foreach ($dishes as $dish)
 
         <div class="col-lg-4 col-sm-6 portfolio-item">

@@ -10,4 +10,6 @@ class Cart extends Model
       'token',
       'dish_id',
     ];
+
+    
 }

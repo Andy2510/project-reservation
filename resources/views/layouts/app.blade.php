@@ -61,12 +61,12 @@
                   </form>
                 </div>
               </li>
+              @endguest
               <li class="nav-item">
-                <a class="nav-link" href="#" id="cart">Cart (<span class="cart-size">0</span>) -
-                  <span class="cart-total">0</span> $
+                <a class="nav-link" href="#" id="cart">Cart (<span class="cart-size">{{ $count }}</span>) -
+                  <span class="cart-total">{{ $cartPrice }}</span> $
                 </a>
               </li>
-              @endguest
           </ul>
         </div>
       </div>
