@@ -11,5 +11,10 @@ class Cart extends Model
       'dish_id',
     ];
 
-    
+    public function dishes()
+{
+    return $this->belongsTo('App\Dish', 'dish_id');
+}
+
+
 }

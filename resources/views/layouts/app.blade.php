@@ -23,17 +23,17 @@
     <!-- Navigation -->
     <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
-        <a class="navbar-brand" href="index.html">Restoranas</a>
+        <a class="navbar-brand" href="{{ route('index') }}">Restoranas</a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto pull-right">
             <li class="nav-item">
-              <a class="nav-link" href="index.html">Services</a>
+              <a class="nav-link" href="#">About Us</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="contact.html">Contact</a>
+              <a class="nav-link" href="#">Contact</a>
             </li>
             @guest
             <li class="nav-item dropdown">
@@ -63,8 +63,8 @@
               </li>
               @endguest
               <li class="nav-item">
-                <a class="nav-link" href="#" id="cart">Cart (<span class="cart-size">{{ $count }}</span>) -
-                  <span class="cart-total">{{ $cartPrice }}</span> $
+                <a class="nav-link" href="{{ route('cart_show') }}" id="cart">Cart (<span class="cart-size">{{ $count }}</span>) -
+                  <span class="cart-total">{{ $cartPrice }}</span> Eur
                 </a>
               </li>
           </ul>

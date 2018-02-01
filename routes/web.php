@@ -11,9 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'DishesController@index')->name('index');
+
 
 Auth::routes();
 
@@ -29,3 +28,6 @@ Route::post('/addToCart', 'CartController@store')->name('addToCart');
 Route::get('/deleteDish/{id}', 'DishesController@destroy')->name('destroy');
 Route::post('/updateDish/{id}', 'DishesController@update')->name('dish_update');
 Route::get('/cart', 'CartController@show')->name('cart_show');
+Route::get('/cart/{id}', 'CartController@destroy')->name('cartItem_destroy');
+// Route::post('/cart', 'CartController@store')->name('checkout');
+Route::post('/order', 'OrderController@store')->name('order');

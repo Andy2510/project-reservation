@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
+      public function __construct() {
+         // $this->middleware('auth')->except('index');
+          $this->middleware('isAdmin')->except('index', 'show');
+      }
     /**
      * Display a listing of the resource.
      *
@@ -52,11 +56,8 @@ class CartController extends Controller
 
       $cart->price = $dish->price;
 
-
       echo json_encode($cart);
-
-
-    }
+      }
 
     /**
      * Display the specified resource.
@@ -66,7 +67,20 @@ class CartController extends Controller
      */
     public function show()
     {
-        return view('cart');
+      $dishes = Cart::where('token', csrf_token())->get();
+
+      $items = [];
+      foreach($dishes as $dish) {
+        $items[] = $dish->dishes;
+      }
+
+      return view('cart', [
+        'dishes' => $items,
+        'cartItems' => $dishes
+      ]);
+
+
+        // return view('cart', $dishes = Cart::where('token', csrf_token())->dishes->get());
     }
 
     /**
@@ -98,8 +112,10 @@ class CartController extends Controller
      * @param  \App\Cart  $cart
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Cart $cart)
+    public function destroy($id)
     {
-        //
+      $item = Cart::findOrFail($id);
+      $item->delete();
+      return redirect()->route('cart');
     }
 }

@@ -26,13 +26,11 @@ class AppServiceProvider extends ServiceProvider
           View::share('count', $count);
           // $cartPrice = Cart::where('token', csrf_token())->sum();
 
-          $dishes = Dish::whereHas('carts', function ($query) {
-            $query->where('token', '=', csrf_token());
-          })
-          ->get();
+          $dishes = Cart::where('token', csrf_token())->get();
           $cartPrice = 0;
+
           foreach ($dishes as $dish) {
-             $cartPrice = round(($cartPrice + $dish->price), 3, PHP_ROUND_HALF_UP);
+             $cartPrice = number_format($cartPrice + $dish->dishes->price, 2);
           }
           View::share('cartPrice', $cartPrice);
         });
