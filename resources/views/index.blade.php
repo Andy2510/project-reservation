@@ -2,14 +2,13 @@
 @section('content')
 
 
-
-
       <h1 class="my-4">Mes siulome:</h1>
 
       <!-- Portfolio Section -->
       <div class="row">
 
 @foreach ($dishes as $dish)
+
 
         <div class="col-lg-4 col-sm-6 portfolio-item">
           <div class="card h-50">

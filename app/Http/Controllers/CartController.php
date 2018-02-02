@@ -5,12 +5,17 @@ use App\Dish;
 use App\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Helpers\PhotoHelper;
+
 
 class CartController extends Controller
 {
-      public function __construct() {
+      private $photoHelper;
+
+      public function __construct(PhotoHelper $photoHelper) {
          // $this->middleware('auth')->except('index');
-          $this->middleware('isAdmin')->except('index', 'show');
+          // $this->middleware('isAdmin')->except('index', 'show', 'store');
+          $this->photoHelper = $photoHelper;
       }
     /**
      * Display a listing of the resource.
@@ -69,22 +74,22 @@ class CartController extends Controller
     public function show()
     {
       $dishes = Cart::where('token', csrf_token())->get();
+      $mergedItems = DB::table('carts')
+       ->select('carts.id', 'dishes.title', 'dishes.price')
+       ->join('dishes', 'carts.dish_id', '=', 'dishes.id')
+       ->where('carts.token', csrf_token())
+       ->get();
 
       $items = [];
       foreach($dishes as $dish) {
         $items[] = $dish->dishes;
       }
+      // dd($items);
 
-      $mergedItems = DB::table('carts')
-      ->select('*')
-      ->join('dishes', 'dishes.id', '=', 'carts.dish_id')
-      ->where('token', csrf_token())
-      ->get();
-      dd($mergedItems);
 
       return view('cart', [
         'dishes' => $items,
-        'cartItems' => $dishes
+        'cartItems' => $mergedItems
       ]);
 
 
@@ -124,6 +129,7 @@ class CartController extends Controller
     {
       $item = Cart::findOrFail($id);
       $item->delete();
-      return redirect()->route('cart');
+      return redirect()->route('cart_show');
+
     }
 }

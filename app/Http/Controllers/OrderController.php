@@ -46,7 +46,8 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        //
+        $orders = Order::get();
+        return view ('orders_show');
     }
 
     /**
