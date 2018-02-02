@@ -24,7 +24,7 @@
           <h4>{{ $dish->price }}</h4>
         </div>
         <div class="col-xs-12 col-sm-1 col-lg-1">
-          <a class="btn btn-default" type="submit" name="button" href="{{ route('cartItem_destroy', $cartItems->id) }}">X</a>
+          <a class="btn btn-default" type="submit" name="button" href="">X</a>
         </div>
       </div>
     @endforeach

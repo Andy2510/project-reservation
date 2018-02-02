@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Dish;
 use App\Cart;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CartController extends Controller
 {
@@ -73,6 +74,13 @@ class CartController extends Controller
       foreach($dishes as $dish) {
         $items[] = $dish->dishes;
       }
+
+      $mergedItems = DB::table('carts')
+      ->select('*')
+      ->join('dishes', 'dishes.id', '=', 'carts.dish_id')
+      ->where('token', csrf_token())
+      ->get();
+      dd($mergedItems);
 
       return view('cart', [
         'dishes' => $items,
