@@ -11,4 +11,9 @@ class Order extends Model
     'total_amount',
     'tax_amount'
   ];
+
+  public function carts()
+  {
+    return $this->hasMany('App\Cart');
+  }
 }

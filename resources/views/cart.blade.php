@@ -55,11 +55,13 @@
 
           <div class="row">
             <div class="col-xs-12 col-sm-3">
-              <form class="" action="{{ route('order') }}" method="post">
-                <input type="hidden" name="total_amount" value="{{ ($cartPrice)*0.21 }}">
-                <input type="hidden" name="tax_amount" value="{{ ($cartPrice)*0.21+$cartPrice }}">
-                <input type="hidden" name="user_id" value="{{ ($cartPrice)*0.21+$cartPrice }}">
-                <a class="btn btn-success" name="button" href="">Order</a>
+              <form action="{{ route('order') }}" method="post">
+                {{ csrf_field() }}
+                
+                <input type="hidden" name="total_amount" value="{{ $total }}">
+                <input type="hidden" name="tax_amount" value="{{ $vat }}">
+                <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                <button class="btn btn-success" name="button" type="submit">Order</button>
               </form>
             </div>
           </div>

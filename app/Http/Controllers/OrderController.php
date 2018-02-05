@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Cart;
 use App\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
@@ -35,7 +37,24 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $post = $request->except('_token');
+        Order::create($post);
+
+        //update user_id field in carts table for successfuly ordered cart Items
+
+
+        // $cartItems = Cart::where('token', csrf_token())->get();
+        $order = Order::all()->first();
+
+
+        $visi = $order->carts()->get();
+        dd($visi);
+
+
+
+
+
+        return redirect()->to('/index');
     }
 
     /**

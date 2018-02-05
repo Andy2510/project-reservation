@@ -16,5 +16,10 @@ class Cart extends Model
     return $this->belongsTo('App\Dish', 'dish_id');
 }
 
+    public function orders()
+{
+    return $this->belongsTo('App\Order', 'order_id');
+}
+
 
 }
