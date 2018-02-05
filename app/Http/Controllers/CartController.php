@@ -1,21 +1,29 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Helpers\CerkauskasCartHelper;
 use App\Dish;
 use App\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Helpers\PhotoHelper;
+// use App\Helpers\PhotoHelper;
 
 
 class CartController extends Controller
 {
-      private $photoHelper;
+        /**
+       * @var CartHelper
+       */
+      private $cartHelper;
 
-      public function __construct(PhotoHelper $photoHelper) {
+
+      // private $photoHelper;
+
+      public function __construct(CerkauskasCartHelper $cartHelper) {
          // $this->middleware('auth')->except('index');
           // $this->middleware('isAdmin')->except('index', 'show', 'store');
-          $this->photoHelper = $photoHelper;
+          // $this->photoHelper = $photoHelper;
+          $this->cartHelper = $cartHelper;
       }
     /**
      * Display a listing of the resource.
@@ -80,16 +88,26 @@ class CartController extends Controller
        ->where('carts.token', csrf_token())
        ->get();
 
+
       $items = [];
       foreach($dishes as $dish) {
         $items[] = $dish->dishes;
       }
       // dd($items);
 
+      // calculate quantity/Total/Vat/beforeVat values using Helpers
+      $quantity = $this->cartHelper->getQuantity($mergedItems);
+      $total = $this->cartHelper->getTotal($mergedItems);
+      $vat = $this->cartHelper->getVat($mergedItems);
+      $beforeTaxes = $this->cartHelper->getBeforeTaxes($mergedItems);
 
       return view('cart', [
         'dishes' => $items,
-        'cartItems' => $mergedItems
+        'cartItems' => $mergedItems,
+        'quantity' => $quantity,
+        'total' => $total,
+        'vat' => $vat,
+        'beforeTaxes' => $beforeTaxes
       ]);
 
 

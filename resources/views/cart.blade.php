@@ -37,19 +37,19 @@
 
       <div class="row">
         <div class="col-xs-12 col-sm-3">
-          <h5 style="font-weight: bold">Sub Total: {{ $cartPrice }} Eur</h5>
+          <h5 style="font-weight: bold">Sub Total: {{ $beforeTaxes }} Eur</h5>
         </div>
       </div>
 
       <div class="row">
           <div class="col-xs-12 col-sm-3">
-            <h5 style="font-weight: bold">VAT: {{ ($cartPrice)*0.21 }} Eur</h5>
+            <h5 style="font-weight: bold">VAT: {{ $vat }} Eur</h5>
           </div>
         </div>
 
         <div class="row">
             <div class="col-xs-12 col-sm-3">
-              <h5 style="color:red; font-weight: bold">Total: {{ ($cartPrice)*0.21+$cartPrice }} Eur</h5>
+              <h5 style="color:red; font-weight: bold">Total: {{ $total }} Eur</h5>
             </div>
           </div>
 
