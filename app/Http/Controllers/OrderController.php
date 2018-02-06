@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use App\Cart;
 use App\Order;
 use Illuminate\Http\Request;
@@ -16,13 +17,19 @@ class OrderController extends Controller
      */
     public function index()
     {
-      $orders = Order::all();
+      $orders = Order::where('user_id', Auth::user()->id)->get();
+      dump($orders);
 
+      $cartItems = $orders[0];
 
-      // foreach ($orders as $order) {
-        $test = $orders[0]->carts()->get();
-        dump($test);
-    // }
+        // $cartItems = $orders[0]->carts();
+        // dump($cartItems);
+
+        foreach ($orders[0]->carts as $cartItem) {
+
+          dump($cartItem);
+        }
+
 
     }
 
@@ -38,28 +45,29 @@ class OrderController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
+     *arts
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
         $post = $request->except('_token');
-        Order::create($post);
+        $order = Order::create($post);
 
         //update user_id field in carts table for successfuly ordered cart Items
 
 
-        // $cartItems = Cart::where('token', csrf_token())->get();
-        $order = Order::all()->first();
+        $cartItems = Cart::where('token', csrf_token())
+        ->whereNull('order_id')
+        ->get();
 
+        
 
-        $visi = $order->carts()->get();
-        dd($visi);
+        foreach ($cartItems as $cartItem) {
+          $cartItem->order_id = $order->id;
 
-
-
-
+          $cartItem->save();
+        }
 
         return redirect()->to('/index');
     }

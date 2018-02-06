@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Auth;
 use App\Helpers\CerkauskasCartHelper;
 use App\Dish;
 use App\Cart;
@@ -81,29 +82,23 @@ class CartController extends Controller
      */
     public function show()
     {
-      $dishes = Cart::where('token', csrf_token())->get();
-      $mergedItems = DB::table('carts')
-       ->select('carts.id', 'dishes.title', 'dishes.price')
-       ->join('dishes', 'carts.dish_id', '=', 'dishes.id')
-       ->where('carts.token', csrf_token())
-       ->get();
-
+      $dishes = Cart::where('token', csrf_token())
+      ->whereNull('order_id')->get();
 
       $items = [];
       foreach($dishes as $dish) {
         $items[] = $dish->dishes;
+
       }
-      // dd($items);
 
       // calculate quantity/Total/Vat/beforeVat values using Helpers
-      $quantity = $this->cartHelper->getQuantity($mergedItems);
-      $total = $this->cartHelper->getTotal($mergedItems);
-      $vat = $this->cartHelper->getVat($mergedItems);
-      $beforeTaxes = $this->cartHelper->getBeforeTaxes($mergedItems);
+      $quantity = $this->cartHelper->getQuantity($items);
+      $total = $this->cartHelper->getTotal($items);
+      $vat = $this->cartHelper->getVat($items);
+      $beforeTaxes = $this->cartHelper->getBeforeTaxes($items);
 
       return view('cart', [
         'dishes' => $items,
-        'cartItems' => $mergedItems,
         'quantity' => $quantity,
         'total' => $total,
         'vat' => $vat,

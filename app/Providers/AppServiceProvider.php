@@ -22,11 +22,11 @@ class AppServiceProvider extends ServiceProvider
         Schema::defaultStringLength(191);
 
         View::composer('*', function ($view) {
-          $count = Cart::where('token', csrf_token())->count();
+          $count = Cart::where('token', csrf_token())->whereNull('order_id')->count();
           View::share('count', $count);
-          // $cartPrice = Cart::where('token', csrf_token())->sum();
 
-          $dishes = Cart::where('token', csrf_token())->get();
+
+          $dishes = Cart::where('token', csrf_token())->whereNull('order_id')->get();
           $cartPrice = 0;
 
           foreach ($dishes as $dish) {

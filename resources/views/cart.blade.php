@@ -3,14 +3,14 @@
 
 <h1 class="my-4">Shopping Cart</h1>
 
-      <?php $i = 0 ?>
-      @foreach ($cartItems as $dish)
+
+    @foreach ($dishes as $dish)
 
       <div class="row">
 
         <div class="col-xs-12 col-sm-2">
           <a href="#">
-            <img class="img-fluid rounded mb-3 mb-md-0" src="{{ $dishes[$i]->url }}" alt="">
+            <img class="img-fluid rounded mb-3 mb-md-0" src="{{ $dish->url }}" alt="">
           </a>
         </div>
         <div class="col-xs-12 col-sm-3 col-lg-3">
@@ -28,7 +28,6 @@
           <a class="btn btn-default" type="submit" class="destroy-button" href="{{ route('cartItem_destroy', $dish->id) }}">X</a>
         </div>
       </div>
-      <?php $i++ ?>
     @endforeach
 
       <!-- /.row -->
@@ -57,10 +56,15 @@
             <div class="col-xs-12 col-sm-3">
               <form action="{{ route('order') }}" method="post">
                 {{ csrf_field() }}
-                
+
                 <input type="hidden" name="total_amount" value="{{ $total }}">
                 <input type="hidden" name="tax_amount" value="{{ $vat }}">
-                <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                <input type="hidden" name="user_id" value="
+                @if (!Auth::guest()) {
+                    echo Auth::user()->id;
+                  }
+                @endif
+                ">
                 <button class="btn btn-success" name="button" type="submit">Order</button>
               </form>
             </div>
