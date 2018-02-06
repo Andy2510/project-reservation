@@ -16,7 +16,14 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+      $orders = Order::all();
+
+
+      // foreach ($orders as $order) {
+        $test = $orders[0]->carts()->get();
+        dump($test);
+    // }
+
     }
 
     /**

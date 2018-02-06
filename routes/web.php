@@ -32,3 +32,5 @@ Route::get('/cartItem_destroy/{id}', 'CartController@destroy')->name('cartItem_d
 // Route::post('/cart', 'CartController@store')->name('checkout');
 Route::post('/order', 'OrderController@store')->name('order');
 Route::get('/orders_show', 'OrderController@show')->name('orders_show');
+
+Route::get('/order2', 'OrderController@index');
