@@ -82,25 +82,23 @@ class CartController extends Controller
      */
     public function show()
     {
-      $dishes = Cart::where('token', csrf_token())
+      $cartItems = Cart::where('token', csrf_token())
       ->whereNull('order_id')->get();
 
-      $items = [];
-      $summaryItems = [];
-      foreach($dishes as $dish) {
-        $items[] = $dish;
-        $summaryItems[] = $dish->dishes;
+      $dishInCart = [];
+      foreach($cartItems as $cartItem) {
+        $dishInCart[] = $cartItem->dishes;
       }
-      // dd($items, $summaryItems);
+      dump($dishInCart);
 
       // calculate quantity/Total/Vat/beforeVat values using Helpers from $summaryItems
-      $quantity = $this->cartHelper->getQuantity($summaryItems);
-      $total = $this->cartHelper->getTotal($summaryItems);
-      $vat = $this->cartHelper->getVat($summaryItems);
-      $beforeTaxes = $this->cartHelper->getBeforeTaxes($summaryItems);
+      $quantity = $this->cartHelper->getQuantity($dishInCart);
+      $total = $this->cartHelper->getTotal($dishInCart);
+      $vat = $this->cartHelper->getVat($dishInCart);
+      $beforeTaxes = $this->cartHelper->getBeforeTaxes($dishInCart);
 
       return view('cart', [
-        'dishes' => $items,
+        'cartItems' => $cartItems,
         'quantity' => $quantity,
         'total' => $total,
         'vat' => $vat,
