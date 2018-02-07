@@ -51,6 +51,9 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
+        if(!Auth::check()){
+            return redirect('/login');
+        }
         $post = $request->except('_token');
         $order = Order::create($post);
 
@@ -61,7 +64,7 @@ class OrderController extends Controller
         ->whereNull('order_id')
         ->get();
 
-        
+
 
         foreach ($cartItems as $cartItem) {
           $cartItem->order_id = $order->id;

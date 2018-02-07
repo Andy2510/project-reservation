@@ -60,9 +60,8 @@
                 <input type="hidden" name="total_amount" value="{{ $total }}">
                 <input type="hidden" name="tax_amount" value="{{ $vat }}">
                 <input type="hidden" name="user_id" value="
-                @if (!Auth::guest()) {
-                    echo Auth::user()->id;
-                  }
+                @if (!Auth::guest())
+                  {{ Auth::user()->id }}
                 @endif
                 ">
                 <button class="btn btn-success" name="button" type="submit">Order</button>
