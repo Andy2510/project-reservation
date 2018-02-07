@@ -1,58 +1,138 @@
-<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
+Reikia padaryti:
+Virsutiniame meniu reikia log-out opcijos in menu dropdown
+dish'u editas (kiekvienam dish`ui - atskiras puslapis)
+Login redirects to Orders menu page (nepadarytas)
+Logout redirects user to Dishes menu page (nepadarytas)
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+Admin panelis:
 
-## About Laravel
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications.
 
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of any modern web application framework, making it a breeze to get started learning the framework.
-
-If you're not in the mood to read, [Laracasts](https://laracasts.com) contains over 1100 video tutorials on a range of topics including Laravel, modern PHP, unit testing, JavaScript, and more. Boost the skill level of yourself and your entire team by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for helping fund on-going Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell):
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-- [User10](https://user10.com)
-- [Soumettre.fr](https://soumettre.fr/)
-- [CodeBrisk](https://codebrisk.com)
-- [1Forge](https://1forge.com)
-- [TECPRESSO](https://tecpresso.co.jp/)
-- [Pulse Storm](http://www.pulsestorm.net/)
-- [Runtime Converter](http://runtimeconverter.com/)
-- [WebL'Agence](https://weblagence.com/)
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+PRO - TASK: Restaurant application
+Task
+Create restaurant table reservation and online meal shop application using Laravel. Application must have 3 types of users: unregistered user, registered user, administrator.
+Structure and guides
+- Registration
+    -- Form
+        --- Name
+        --- Surname
+        --- Date of birth
+        --- Phone number
+        --- Email
+        --- Password
+        --- Password repeat
+        --- Address
+        --- City
+        --- Zip code
+        --- Country (dropdown - optional)
+    -- Validation
+        --- Name required
+        --- Surname required
+        --- Date of birth required, format YYYY-MM-DD
+        --- Phone number required
+        --- Email required, is valid email address
+        --- Password required
+        --- Password repeat must match with password
+        --- Address required
+        --- City required
+        --- Zip code required, only numbers
+        --- Country required
+    -- Submit
+        --- Saves user info to database
+        --- Logins user to system
+        --- Redirects user to Dishes menu page (nepadarytas)
+- Login
+    -- Form
+        --- Email
+        --- Password
+    -- Validation
+        --- Email required
+        --- Password required
+    -- Email and password must match with user in database
+    -- Submit
+        --- Logs user into system
+        --- Redirects to Orders menu page (nepadarytas)
+- User profile
+    -- Same as in Registration with pre-filed user data
+    - Users (Admin mode)
+        -- Registered users list
+            --- User ID
+            --- Name surname
+            --- Email
+            --- Date of birth
+            --- Phone number
+            --- Address (including city, zipcode, country)
+        -- Actions
+            --- Delete user (deactivate optional)
+            --- No delete button for current admin user
+- Logout
+    -- Logs out current user
+    -- Redirects to home page
+- Layout
+    -- Restaurant logo
+    -- Restaurant title
+    -- Current page title
+    -- Total items in cart + link to cart
+    -- Content
+- Dish Menu -> Add to cart button
+-- Admin mode
+    --- Create new item
+    --- Update item
+    --- Delete item
+    --- Reorder (optional)
+-- Table Validation
+    --- Name required
+    --- Number of persons at least one
+    --- Date required, format: YYYY-MM-DD
+    --- Time required, format: HH:mm
+    --- Phone required
+-- Pre-fill name, phone field if user is logged in (optional)
+-- Admin mode
+    --- List of reservations by users
+    ---- Ordered by date from newest to oldest
+    ---- Edit item
+    ---- Delete item
+-- Submit
+    --- Saves reservation info into database
+    --- Redirects user to Contacts page
+- Cart
+    -- List of items in cart
+        --- Name
+        --- Price
+        --- Picture
+        -- Totals
+        --- Without tax
+        --- Tax
+        --- With tax
+    -- Checkout button
+        --- Redirects user to registration if not logged in
+        --- Saves order info to database
+        --- Redirects user to Dishes menu page
+- Contacts
+    -- Content
+        --- Show google maps
+        --- Show basic info about the restaurant (name, location, working hours)
+    -- Admin mode (optional)
+        --- Edit info in WYSIWYG editor
+- Orders
+    -- User orders list
+        --- Order ID
+        --- Customer ID
+        --- Customer name, surname
+        --- Total amount
+        --- Tax amount
+        --- Order creation date
+    -- Admin mode
+        --- All users orders
+        --- Totals of all items in list
+    - Order can have only 1 Table reservation
+-- Use bootstrap, http://getbootstrap.com/
+-- All elements of page which can be styled with bootstrap, MUST be styled with bootstrap
+-- Use bootstrap themes, http://themes.getbootstrap.com/ (optional)
+-- Responsive layout
+-- Use AJAX for "Add to cart"
+-- Use Laravel, http://laravel.com/
+-- Use bitbucket or github to submit your code
+-- Use Javascript API for google maps, https://developers.google.com/maps/documentation/javascript/adding-a-google-map
