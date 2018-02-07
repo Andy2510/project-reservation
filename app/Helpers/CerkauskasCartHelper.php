@@ -29,4 +29,14 @@ class CerkauskasCartHelper
         $vat = $this->getTotal($collection) * 0.21;
         return number_format($vat, 2);
     }
+
+    public function getSum(Array $collection)
+    {
+      $total = 0;
+      for ($i=0; $i < count($collection) ; $i++) {
+        $total = $total + $collection[$i];
+      }
+      return number_format($total, 2);
+    }
+
 }

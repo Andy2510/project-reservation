@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\CerkauskasCartHelper;
 use Auth;
 use App\Cart;
 use App\Order;
@@ -15,20 +16,14 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+     public function __construct(CerkauskasCartHelper $cartHelper) {
+         $this->cartHelper = $cartHelper;
+         $this->middleware('auth');
+     }
+
     public function index()
     {
-      $orders = Order::where('user_id', Auth::user()->id)->get();
-      dump($orders);
-
-      $cartItems = $orders[0];
-
-        // $cartItems = $orders[0]->carts();
-        // dump($cartItems);
-
-        foreach ($orders[0]->carts as $cartItem) {
-
-          dump($cartItem);
-        }
 
 
     }
@@ -83,8 +78,30 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        $orders = Order::get();
-        return view ('orders_show');
+        if(Auth::user()->isAdmin()){
+          $orders = Order::get();
+        }
+        else{
+          eeeeeeeeeeeeeeeeeeeeee
+        }
+
+        $ordersArray = [];
+        foreach($orders as $order) {
+          $ordersArray[] = $order;
+        }
+
+
+
+        $quantity = $this->cartHelper->getQuantity($ordersArray);
+        $totalSum = $this->cartHelper->getSum(array_pluck($orders, 'total_amount'));
+        $totalTax = $this->cartHelper->getSum(array_pluck($orders, 'tax_amount'));
+
+        return view ('order', [
+          'quantity' => $quantity,
+          'totalSum' => $totalSum,
+          'totalTax' => $totalTax,
+          'orders' => $orders
+        ]);
     }
 
     /**
