@@ -86,16 +86,18 @@ class CartController extends Controller
       ->whereNull('order_id')->get();
 
       $items = [];
+      $summaryItems = [];
       foreach($dishes as $dish) {
-        $items[] = $dish->dishes;
-
+        $items[] = $dish;
+        $summaryItems[] = $dish->dishes;
       }
+      // dd($items, $summaryItems);
 
-      // calculate quantity/Total/Vat/beforeVat values using Helpers
-      $quantity = $this->cartHelper->getQuantity($items);
-      $total = $this->cartHelper->getTotal($items);
-      $vat = $this->cartHelper->getVat($items);
-      $beforeTaxes = $this->cartHelper->getBeforeTaxes($items);
+      // calculate quantity/Total/Vat/beforeVat values using Helpers from $summaryItems
+      $quantity = $this->cartHelper->getQuantity($summaryItems);
+      $total = $this->cartHelper->getTotal($summaryItems);
+      $vat = $this->cartHelper->getVat($summaryItems);
+      $beforeTaxes = $this->cartHelper->getBeforeTaxes($summaryItems);
 
       return view('cart', [
         'dishes' => $items,

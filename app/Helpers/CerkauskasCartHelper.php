@@ -6,12 +6,12 @@ class CerkauskasCartHelper
     // kiek visos prekės kainuoja
     // kiek prekių kainos sudaro PVM
     // kiek prekės be PVM kainuoja
-    public function getQuantity($collection)
+    public function getQuantity(Array $collection)
     {
         $count = count($collection);
         return $count;
     }
-    public function getTotal($collection)
+    public function getTotal(Array $collection)
     {
         $total = 0;
         for ($i=0; $i < count($collection) ; $i++) {
@@ -20,11 +20,11 @@ class CerkauskasCartHelper
         return number_format($total, 2);
 
     }
-    public function getBeforeTaxes($collection)
+    public function getBeforeTaxes(Array $collection)
     {
         return $this->getTotal($collection) - $this->getVat($collection);
     }
-    public function getVat($collection)
+    public function getVat(Array $collection)
     {
         $vat = $this->getTotal($collection) * 0.21;
         return number_format($vat, 2);
