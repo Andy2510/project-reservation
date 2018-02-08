@@ -1,13 +1,15 @@
 @extends('layouts.app')
 @section('content')
-    <h1 class="my-4">Orders (Nr)</h1>
+    <h1 class="my-4">Orders</h1>
 
     <hr>
 
-    <div class="panel panel-default">
+   <div class="panel panel-default">
 
 @if (Auth::check() && Auth::user()->isAdmin())
-      <table class="table">
+      <h3>Orders Table for Admin</h3>
+      <br>
+      <table class="table table-bordered table-hover">
           <thead>
             <tr>
               <th></th>
@@ -48,12 +50,14 @@
           </tfoot>
         </table>
 
-      @else
 
-        <table class="table">
+      <br>
+      <h3>Orders Table for User</h3>
+      @endif
+      <br>
+        <table class="table table-bordered table-hover">
           <thead>
             <tr>
-              <th></th>
               <th>Nr</th>
               <th>Order ID</th>
               <th>Dish Name</th>
@@ -64,24 +68,23 @@
           <tbody>
             @foreach ($orders as $order)
             <tr>
-              <td></td>
                 <td>Nr</td>
                 <td>{{ $order->id }}</td>
                 <td>
-                  {{-- <ul>
-                    @foreach ()
-                      <li><small><a href="#">Dish Name</a></small></li>
+                  <ul>
+                    @foreach ($order->dishNamesInOrder as $dishName)
+                      <li><small><a href="#">{{ $dishName }}</a></small></li>
                     @endforeach
-                  </ul> --}}
+                  </ul>
                 </td>
                 <td>{{ $order->total_amount }}</td>
                 <td>{{ $order->created_at }}</td>
             </tr>
-            @endforeach
+              @endforeach
           </tbody>
       </table>
 
-    @endif
+
     </div>
 
 

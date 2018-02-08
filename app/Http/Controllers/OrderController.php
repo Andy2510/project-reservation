@@ -82,25 +82,43 @@ class OrderController extends Controller
           $orders = Order::get();
         }
         else{
-          eeeeeeeeeeeeeeeeeeeeee
+          $orders = Order::where('user_id', Auth::user()->id)->get();
+
         }
 
         $ordersArray = [];
         foreach($orders as $order) {
+
+          $orderCartItems = [];
+          $dishesInCart = [];
+          $dishesInOrder = [];
+
+          $orderCartItems[] = $order->carts;
+
+          for ($i=0; $i < count($orderCartItems); $i++) {
+              foreach ($orderCartItems[$i] as $dishInCart) {
+              $dishesInCart[] = $dishInCart->dishes->title;
+            }
+            $dishesInOrder[] = $dishesInCart;
+            $order['dishNamesInOrder'] = $dishesInCart;
+            $dishesInCart = [];
+          }
+
+
           $ordersArray[] = $order;
         }
-
-
 
         $quantity = $this->cartHelper->getQuantity($ordersArray);
         $totalSum = $this->cartHelper->getSum(array_pluck($orders, 'total_amount'));
         $totalTax = $this->cartHelper->getSum(array_pluck($orders, 'tax_amount'));
 
+
+
         return view ('order', [
           'quantity' => $quantity,
           'totalSum' => $totalSum,
           'totalTax' => $totalTax,
-          'orders' => $orders
+          'orders' => $ordersArray
         ]);
     }
 
