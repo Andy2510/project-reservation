@@ -86,26 +86,39 @@ class OrderController extends Controller
 
         }
 
+        // $ordersArray = [];
+        // foreach($orders as $order) {
+        //
+        //   $orderCartItems = [];
+        //   $dishesInCart = [];
+        //   $dishesInOrder = [];
+        //
+        //   $orderCartItems[] = $order->carts;
+        //
+        //   for ($i=0; $i < count($orderCartItems); $i++) {
+        //       foreach ($orderCartItems[$i] as $dishInCart) {
+        //       $dishesInCart[] = $dishInCart->dishes->title;
+        //     }
+        //     $dishesInOrder[] = $dishesInCart;
+        //     $order['dishNamesInOrder'] = $dishesInCart;
+        //     $dishesInCart = [];
+        //   }
+        //
+        //
+        //   $ordersArray[] = $order;
+        // }
+
         $ordersArray = [];
         foreach($orders as $order) {
-
-          $orderCartItems = [];
-          $dishesInCart = [];
-          $dishesInOrder = [];
-
-          $orderCartItems[] = $order->carts;
-
-          for ($i=0; $i < count($orderCartItems); $i++) {
-              foreach ($orderCartItems[$i] as $dishInCart) {
-              $dishesInCart[] = $dishInCart->dishes->title;
-            }
-            $dishesInOrder[] = $dishesInCart;
-            $order['dishNamesInOrder'] = $dishesInCart;
-            $dishesInCart = [];
-          }
-
-
           $ordersArray[] = $order;
+        }
+
+        $cartItems = Cart::where('order_id', $order)->get();
+
+        $dishTitlesArray = [];
+        foreach($cartItems as $cartItem){
+          $dishTitles = $cartItem->dishes->title;
+          $dishTitlesArray[] = $dishTitles;
         }
 
         $quantity = $this->cartHelper->getQuantity($ordersArray);
@@ -113,12 +126,12 @@ class OrderController extends Controller
         $totalTax = $this->cartHelper->getSum(array_pluck($orders, 'tax_amount'));
 
 
-
         return view ('order', [
           'quantity' => $quantity,
           'totalSum' => $totalSum,
           'totalTax' => $totalTax,
-          'orders' => $ordersArray
+          'orders' => $ordersArray,
+          'dishTitle' => $dishTitlesArray
         ]);
     }
 

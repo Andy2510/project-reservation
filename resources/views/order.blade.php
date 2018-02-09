@@ -54,7 +54,9 @@
       <br>
       <h3>Orders Table for User</h3>
       @endif
+
       <br>
+
         <table class="table table-bordered table-hover">
           <thead>
             <tr>
@@ -68,12 +70,19 @@
           <tbody>
             @foreach ($orders as $order)
             <tr>
-                <td>Nr</td>
+
+                <td>
+                  nr
+                </td>
+
                 <td>{{ $order->id }}</td>
                 <td>
                   <ul>
-                    @foreach ($order->dishNamesInOrder as $dishName)
+                    {{-- @foreach ($order->dishNamesInOrder as $dishName)
                       <li><small><a href="#">{{ $dishName }}</a></small></li>
+                    @endforeach --}}
+                    @foreach ($order->carts as $cartItem)
+                      <li><small><a href="#">{{ $cartItem->dishes->title }}</a></small></li>
                     @endforeach
                   </ul>
                 </td>
