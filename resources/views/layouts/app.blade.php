@@ -70,7 +70,7 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownBlog">
                   <a class="dropdown-item" href="{{ route('orders_show') }}">Orders List</a>
-                  <a class="dropdown-item" href="#">Insert New dish</a>
+                  <a class="dropdown-item" href="{{ route('dish_create') }}">Insert New dish</a>
                 </div>
               </li>
               @endif

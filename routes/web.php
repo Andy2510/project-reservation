@@ -32,5 +32,7 @@ Route::get('/cartItem_destroy/{id}', 'CartController@destroy')->name('cartItem_d
 // Route::post('/cart', 'CartController@store')->name('checkout');
 Route::post('/order', 'OrderController@store')->name('order');
 Route::get('/orders_show', 'OrderController@show')->name('orders_show');
+Route::get('/createReservation', 'ReservationController@create')->name('reservation_create');
+Route::post('/storeReservation', 'ReservationController@store')->name('reservation_store');
 
 Route::get('/order2', 'OrderController@index');

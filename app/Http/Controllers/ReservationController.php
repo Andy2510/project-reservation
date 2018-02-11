@@ -24,7 +24,7 @@ class ReservationController extends Controller
      */
     public function create()
     {
-        //
+        return view('createReservation');
     }
 
     /**
@@ -35,7 +35,31 @@ class ReservationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      $this->validator($request);
+      $post = $request->except('_token');
+
+      if(!Auth::check()){
+        $post = [
+          'name' => $request->get('name'),
+          'phone' => $request->get('phone'),
+          'no_persons' => $request->get('no_persons'),
+          'date' => $request->get('date'),
+          'time' => $request->get('time')
+        ];
+      }else{
+        $post = [
+          'name' => $request->get('name'),
+          'user_id' => $request->get('user_id'),
+          'phone' => $request->get('phone'),
+          'no_persons' => $request->get('no_persons'),
+          'date' => $request->get('date'),
+          'time' => $request->get('time')
+        ];
+      }
+
+      Reservation::create($post);
+
+//      return redirect()->route('index');
     }
 
     /**
@@ -69,7 +93,7 @@ class ReservationController extends Controller
      */
     public function update(Request $request, Reservation $reservation)
     {
-        //
+      //
     }
 
     /**
@@ -78,8 +102,21 @@ class ReservationController extends Controller
      * @param  \App\Reservation  $reservation
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Reservation $reservation)
+    public function destroy($id)
     {
-        //
+      $reservation = Reservation::findOrFail($id);
+      $reservation->delete();
+//      return redirect()->route('index');
     }
+
+    protected function validator($data)
+{
+    return $data->validate([
+        'name' => 'required|string|max:255',
+        'phone' => 'required|string|max:255',
+        'no_persons' => 'required',
+        'date' => 'required|date_format:Y-m-d',
+        'time' => 'required'
+      ]);
+}
 }
