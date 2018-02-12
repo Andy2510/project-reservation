@@ -37,7 +37,7 @@
               <label>Number of persons:</label>
               <select type="number" class="form-control" id="no_persons" name="no_persons">
               @for ($i=1; $i<=10; $i++)
-                  <option value="">{{ $i }}</option>
+                  <option value="{{ $i }}" @if(old('no_persons') == $i) {{ 'selected' }} @endif>{{ $i }}</option>
               @endfor
               </select>
             </div>
@@ -58,9 +58,10 @@
             <div class="controls">
               <label>Reservation time:</label>
               <select type="text" class="form-control" id="time" name="time">
-                @for ($hours=10; $hours<=22; $hours++)
-                  @for ($min=00; $min<=30; $min+=30)
-                    <option value="">{{ $hours }}:{{ $min }}</option>
+
+              @for ($hours=10; $hours<=22; $hours++)
+                  @for ($min=0; $min<=30; $min+=30)
+                    <option value="">{{ $hours }}:{{ str_pad($min, 2, '0', STR_PAD_LEFT) }}</option>
                   @endfor
                 @endfor
               </select>
