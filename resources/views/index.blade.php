@@ -40,16 +40,18 @@
 
 
   <div class="row">
-    <div class="col-lg-4 col-sm-6">
-
+    <div class="col-lg-2 col-sm-6">
+      <a href="{{ route('reservate') }}" class="btn btn-info" role="button">Reservate a table</a>
+    </div>
+    <div class="col-lg-2 col-sm-6">
       @if (Auth::check() && Auth::user()->isAdmin())
       <a href="{{ route('dish_create') }}" class="btn btn-info" role="button">Insert new dish</a>
       @endif
-
     </div>
 
   </div>
-
+  <br>
+  <br>
 
       <!-- Pagination -->
       <ul class="pagination justify-content-center">

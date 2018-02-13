@@ -1,12 +1,18 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Auth;
+use App\User;
 use App\Reservation;
 use Illuminate\Http\Request;
 
 class ReservationController extends Controller
 {
+
+    public function __construct() {
+         $this->middleware('auth')->except('store', 'create');
+     }
+
     /**
      * Display a listing of the resource.
      *
@@ -36,30 +42,24 @@ class ReservationController extends Controller
     public function store(Request $request)
     {
       $this->validator($request);
-      $post = $request->except('_token');
-
-      if(!Auth::check()){
-        $post = [
-          'name' => $request->get('name'),
-          'phone' => $request->get('phone'),
-          'no_persons' => $request->get('no_persons'),
-          'date' => $request->get('date'),
-          'time' => $request->get('time')
-        ];
-      }else{
-        $post = [
-          'name' => $request->get('name'),
-          'user_id' => $request->get('user_id'),
-          'phone' => $request->get('phone'),
-          'no_persons' => $request->get('no_persons'),
-          'date' => $request->get('date'),
-          'time' => $request->get('time')
-        ];
+      if(Auth::user()){
+        $userId = Auth::user()->id;
       }
+      else{
+       $userId = NULL;
+     }
 
+      $post = [
+        'name' => $request['name'],
+        'user_id' => $userId,
+        'phone' => $request['phone'],
+        'no_persons' => $request['no_persons'],
+        'date' => $request['date'],
+        'time' => $request['time']
+      ];
       Reservation::create($post);
 
-//      return redirect()->route('index');
+     return redirect()->route('index');
     }
 
     /**
@@ -70,7 +70,23 @@ class ReservationController extends Controller
      */
     public function show(Reservation $reservation)
     {
-        //
+        if(Auth::user()->isAdmin()){
+          $reservations = Reservation::get();
+        }
+        else{
+          $reservations = Reservation::where('user_id', Auth::user()->id)->get();
+
+        }
+
+        $reservationsArray = [];
+        foreach($reservations as $reservation) {
+          $reservationsArray[] = $reservation;
+        }
+
+        return view ('reservation', [
+          'reservations' => $reservations
+        ]);
+
     }
 
     /**

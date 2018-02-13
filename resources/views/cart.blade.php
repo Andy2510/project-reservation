@@ -51,9 +51,9 @@
               <h5 style="color:red; font-weight: bold">Total: {{ $total }} Eur</h5>
             </div>
           </div>
-
+          <br>
           <div class="row">
-            <div class="col-xs-12 col-sm-3">
+            <div class="col-xs-12 col-sm-2">
               <form action="{{ route('order') }}" method="post">
                 {{ csrf_field() }}
 
@@ -67,6 +67,11 @@
                 <button class="btn btn-success" name="button" type="submit">Order</button>
               </form>
             </div>
+            <div class="col-xs-12 col-sm-2">
+                <a href="{{ route('reservate') }}" class="btn btn-info" role="button">Reservate a table</a>
+            </div>
           </div>
+          <br>
+          <br>
 
 @endsection
