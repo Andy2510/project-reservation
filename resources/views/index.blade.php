@@ -2,7 +2,7 @@
 @section('content')
 
 
-      <h1 class="my-4">Mes siulome:</h1>
+      <h1 class="my-4">What's on our menu:</h1>
 
       <!-- Portfolio Section -->
       <div class="row">
@@ -11,14 +11,14 @@
 
 
         <div class="col-lg-4 col-sm-6 portfolio-item">
-          <div class="card h-50">
+          <div class="card h-100">
             <a href="#"><img class="card-img-top" src="{{ $dish->url }}" alt=""></a>
             <div class="card-body">
-              <h4 class="card-title">
+              <h4 class="card-title text-center">
                 <a href="#">{{ $dish->title }}</a>
               </h4>
               <p class="card-text">{{ $dish->description }}</p>
-              <h5>{{ $dish->price}}</h5>
+              <h5 class="text-center">{{ $dish->price}} €</h5>
             </div>
             <div class="card-footer">
                 <form method="POST" action="{{ route('addToCart') }}">
@@ -52,7 +52,7 @@
 
 
       <!-- Pagination -->
-      <ul class="pagination justify-content-center">
+      <!-- <ul class="pagination justify-content-center">
         <li class="page-item">
           <a class="page-link" href="#" aria-label="Previous">
             <span aria-hidden="true">&laquo;</span>
@@ -74,7 +74,7 @@
             <span class="sr-only">Next</span>
           </a>
         </li>
-      </ul>
+      </ul> -->
 
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

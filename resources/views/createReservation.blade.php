@@ -4,7 +4,7 @@
 <div class="container">
   <div class="row">
       <div class="col-lg-8 mb-4">
-        <h3>Create Reservation</h3>
+        <h3 class="top-headlight">Create Reservation</h3>
         <form name="sentMessage" id="contactForm" novalidate method="POST" action="{{ route('reservation_store') }}" enctype="multipart/form-data">
             {{ csrf_field() }}
 
@@ -61,7 +61,7 @@
 
               @for ($hours=10; $hours<=22; $hours++)
                   @for ($min=0; $min<=30; $min+=30)
-                    <option value="">{{ $hours }}:{{ str_pad($min, 2, '0', STR_PAD_LEFT) }}</option>
+                    <option value="{{ $hours }}:{{ str_pad($min, 2, '0', STR_PAD_LEFT) }}">{{ $hours }}:{{ str_pad($min, 2, '0', STR_PAD_LEFT) }}</option>
                   @endfor
                 @endfor
               </select>
