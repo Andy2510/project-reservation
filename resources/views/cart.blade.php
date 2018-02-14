@@ -46,13 +46,13 @@
             <div class="col-xs-12 col-sm-3">
               <h5 style="color:red; font-weight: bold">Total: {{ $total }} Eur</h5>
             </div>
-<<<<<<< HEAD
+
         </div>
 
-=======
+
           </div>
           <br>
->>>>>>> 9e5832218e5574c4d22558f64cc2809ed96e6f5b
+
           <div class="row">
             <div class="col-xs-12 col-sm-2">
               <form action="{{ route('order') }}" method="post">

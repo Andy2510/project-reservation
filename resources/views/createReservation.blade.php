@@ -4,13 +4,10 @@
 <div class="container">
   <div class="row">
       <div class="col-lg-8 mb-4">
-<<<<<<< HEAD
+
         <h3 class="top-headlight">Create Reservation</h3>
-        <form name="sentMessage" id="contactForm" novalidate method="POST" action="{{ route('reservation_store') }}" enctype="multipart/form-data">
-=======
-        <h3>Create Reservation</h3>
-        <form name="sentMessage" id="contactForm" method="POST" action="{{ route('reservation_store') }}">
->>>>>>> 9e5832218e5574c4d22558f64cc2809ed96e6f5b
+        <form name="sentMessage" id="contactForm" method="POST" action="{{ route('reservation_store') }}" enctype="multipart/form-data">
+
             {{ csrf_field() }}
 
           <div class="control-group form-group{{ $errors->has('name') ? ' has-error' : '' }}">
