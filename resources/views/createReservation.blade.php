@@ -4,8 +4,13 @@
 <div class="container">
   <div class="row">
       <div class="col-lg-8 mb-4">
+<<<<<<< HEAD
         <h3 class="top-headlight">Create Reservation</h3>
         <form name="sentMessage" id="contactForm" novalidate method="POST" action="{{ route('reservation_store') }}" enctype="multipart/form-data">
+=======
+        <h3>Create Reservation</h3>
+        <form name="sentMessage" id="contactForm" method="POST" action="{{ route('reservation_store') }}">
+>>>>>>> 9e5832218e5574c4d22558f64cc2809ed96e6f5b
             {{ csrf_field() }}
 
           <div class="control-group form-group{{ $errors->has('name') ? ' has-error' : '' }}">
@@ -61,7 +66,11 @@
 
               @for ($hours=10; $hours<=22; $hours++)
                   @for ($min=0; $min<=30; $min+=30)
+<<<<<<< HEAD
                     <option value="{{ $hours }}:{{ str_pad($min, 2, '0', STR_PAD_LEFT) }}">{{ $hours }}:{{ str_pad($min, 2, '0', STR_PAD_LEFT) }}</option>
+=======
+                    <option value="{{ $hours }}:{{ str_pad($min, 2, '0', STR_PAD_LEFT) }}" @if(old('time') ==  $hours . ":" . str_pad($min, 2, '0', STR_PAD_LEFT)) {{ 'selected' }} @endif>{{ $hours }}:{{ str_pad($min, 2, '0', STR_PAD_LEFT) }}</option>
+>>>>>>> 9e5832218e5574c4d22558f64cc2809ed96e6f5b
                   @endfor
                 @endfor
               </select>

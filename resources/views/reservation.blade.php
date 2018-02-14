@@ -20,9 +20,9 @@
         <div class="col-xs-12 col-sm-3 col-lg-3">
           <h3>{{ $reservation->time }}</h3>
         </div>
-        <div class="col-xs-12 col-sm-1 col-lg-1">
+        {{-- <div class="col-xs-12 col-sm-1 col-lg-1">
           <a class="btn btn-default" type="submit" class="destroy-button" href="{{ route('cartItem_destroy', $cartItem->id) }}">X</a>
-        </div>
+        </div> --}}
       </div>
     @endforeach
 

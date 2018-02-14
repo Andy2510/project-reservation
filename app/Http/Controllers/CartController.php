@@ -89,7 +89,7 @@ class CartController extends Controller
       foreach($cartItems as $cartItem) {
         $dishInCart[] = $cartItem->dishes;
       }
-      dump($dishInCart);
+
 
       // calculate quantity/Total/Vat/beforeVat values using Helpers from $summaryItems
       $quantity = $this->cartHelper->getQuantity($dishInCart);
