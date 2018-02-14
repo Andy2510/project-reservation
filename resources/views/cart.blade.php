@@ -47,7 +47,7 @@
               <h5 style="color:red; font-weight: bold">Total: {{ $total }} Eur</h5>
             </div>
 
-        </div>
+        
 
 
           </div>
@@ -68,10 +68,13 @@
                 <button class="btn btn-success" name="button" type="submit">Order</button>
               </form>
             </div>
+
+
             <div class="col-xs-12 col-sm-2">
                 <a href="{{ route('reservate') }}" class="btn btn-info" role="button">Reservate a table</a>
             </div>
           </div>
+        </div>
           <br>
           <br>
 
