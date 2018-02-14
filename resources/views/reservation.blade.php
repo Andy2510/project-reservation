@@ -1,33 +1,84 @@
 @extends('layouts.app')
 @section('content')
+    <h1 class="my-4">Reservations</h1>
 
-<h1 class="my-4">Reservation Edit</h1>
+    <hr>
+
+   <div class="panel panel-default">
+
+@if (Auth::check() && Auth::user()->isAdmin())
+      <h3>Reservations (Admin mode)</h3>
+      <br>
+      <table class="table table-bordered table-hover">
+          <thead>
+            <tr>
+              <th></th>
+
+              <th>Reservation Id</th>
+              <th>Customer ID</th>
+              <th>Customer Name</th>
+              <th>Customer Phone</th>
+              <th>Amount of Persons</th>
+              <th>Reservated at (date)</th>
+              <th>Reservated at (time)</th>
+
+            </tr>
+          </thead>
+          <tbody>
+            @foreach ($reservations as $reservation)
+            <tr>
+              <td></td>
+
+                <td>{{ $reservation->id }}</td>
+                <td>{{ $reservation->user_id }}</td>
+                <td>{{ $reservation->name }}</td>
+                <td>{{ $reservation->phone }}</td>
+                <td>{{ $reservation->no_persons }}</td>
+                <td>{{ $reservation->date }}</td>
+                <td>{{ $reservation->time }}</td>
+
+            </tr>
+            @endforeach
+          </tbody>
+        </table>
+@endif
 
 
-    @foreach ($reservations as $reservation)
 
-      <div class="row">
 
-        <div class="col-xs-12 col-sm-3 col-lg-3">
-          <h3>{{ $reservation->name }}</h3>
-        </div>
-        <div class="col-xs-12 col-sm-3 col-lg-3">
-          <h3>{{ $reservation->no_persons }}</h3>
-        </div>
-        <div class="col-xs-12 col-sm-3 col-lg-3">
-          <h3>{{ $reservation->date }}</h3>
-        </div>
-        <div class="col-xs-12 col-sm-3 col-lg-3">
-          <h3>{{ $reservation->time }}</h3>
-        </div>
-        {{-- <div class="col-xs-12 col-sm-1 col-lg-1">
-          <a class="btn btn-default" type="submit" class="destroy-button" href="{{ route('cartItem_destroy', $cartItem->id) }}">X</a>
-        </div> --}}
-      </div>
-    @endforeach
 
-      <!-- /.row -->
+@if (Auth::user() && !Auth::user()->isAdmin())
+        <br>
 
-      <hr>
+        <table class="table table-bordered table-hover">
+          <thead>
+            <tr>
+
+              <th>Customer Name</th>
+              <th>Customer Phone</th>
+              <th>Amount of Persons</th>
+              <th>Reservated at (date)</th>
+              <th>Reservated at (time)</th>
+              <th>Delete Reservation</th>
+            </tr>
+          </thead>
+          <tbody>
+            @foreach ($reservations as $reservation)
+            <tr>
+              <td>{{ $reservation->name }}</td>
+              <td>{{ $reservation->phone }}</td>
+              <td>{{ $reservation->no_persons }}</td>
+              <td>{{ $reservation->date }}</td>
+              <td>{{ $reservation->time }}</td>
+              <td><a class="btn btn-default" type="submit" class="destroy-button" href="{{ route('reservation_destroy', $reservation->id) }}">X</a></td>
+            </tr>
+              @endforeach
+          </tbody>
+      </table>
+
+
+    </div>
+
+@endif
 
 @endsection

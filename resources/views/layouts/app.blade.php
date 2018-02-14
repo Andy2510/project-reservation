@@ -47,7 +47,8 @@
                 <a class="dropdown-item" href="{{ route('login') }}">Login</a>
               </div>
             </li>
-            @else
+            @endguest
+            @if( Auth::user() && !Auth::user()->isAdmin())
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownBlog" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   {{ Auth::user()->name }}
@@ -55,6 +56,7 @@
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownBlog">
                   <a class="dropdown-item" href="{{ route('profile') }}">Edit Profile</a>
                   <a class="dropdown-item" href="{{ route('orders_show') }}">Orders List</a>
+                    <a class="dropdown-item" href="{{ route('reservation_show') }}">Reservations</a>
                   <a class="dropdown-item" href="{{ route('logout') }}"
                   onclick="event.preventDefault();
                            document.getElementById('logout-form').submit();"
@@ -64,15 +66,24 @@
                   </form>
                 </div>
               </li>
-              @endguest
+              @endif
               @if (Auth::check() && Auth::user()->isAdmin())
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownBlog" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Admin Mode
+                  Admin - {{ Auth::user()->name }}
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownBlog">
+                  <a class="dropdown-item" href="{{ route('profile') }}">Edit Profile</a>
                   <a class="dropdown-item" href="{{ route('orders_show') }}">Orders List</a>
+                  <a class="dropdown-item" href="{{ route('reservation_show') }}">Reservations List</a>
                   <a class="dropdown-item" href="{{ route('dish_create') }}">Insert New dish</a>
+                  <a class="dropdown-item" href="{{ route('logout') }}"
+                  onclick="event.preventDefault();
+                           document.getElementById('logout-form').submit();"
+                  >Logout</a>
+                  <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                      {{ csrf_field() }}
+                  </form>
                 </div>
               </li>
               @endif
@@ -89,8 +100,9 @@
     <div class="container">
 
     @yield('content')
-  </div>
 
+    </div>
+    </div>
     <!-- Footer -->
     <footer class="py-5 bg-dark">
       <div class="container">

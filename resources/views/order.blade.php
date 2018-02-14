@@ -13,7 +13,7 @@
           <thead>
             <tr>
               <th></th>
-              <th>Nr</th>
+
               <th>Order ID</th>
               <th>Customer ID</th>
               <th>Customer Name</th>
@@ -26,7 +26,7 @@
             @foreach ($orders as $order)
             <tr>
               <td></td>
-                <td>Nr</td>
+
                 <td>{{ $order->id }}</td>
                 <td>{{ $order->user_id }}</td>
                 <td>{{ $order->users->name }} {{ $order->users->surname }}</td>
@@ -60,7 +60,7 @@
         <table class="table table-bordered table-hover">
           <thead>
             <tr>
-              <th>Nr</th>
+
               <th>Order ID</th>
               <th>Dish Name</th>
               <th>Price</th>
@@ -71,9 +71,6 @@
             @foreach ($orders as $order)
             <tr>
 
-                <td>
-                  nr
-                </td>
 
                 <td>{{ $order->id }}</td>
                 <td>
