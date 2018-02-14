@@ -47,8 +47,6 @@
               <h5 style="color:red; font-weight: bold">Total: {{ $total }} Eur</h5>
             </div>
 
-        
-
 
           </div>
           <br>

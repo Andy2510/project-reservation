@@ -12,10 +12,13 @@
                         <div class="alert alert-success">
                             {{ session('status') }}
                         </div>
+                        @else
+                        <h3 class="top-headlight">You are logged in!</h3>
                     @endif
 
-                    You are logged in!
-                    
+
+
+
                 </div>
             </div>
         </div>

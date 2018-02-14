@@ -83,7 +83,6 @@ class OrderController extends Controller
         }
         else{
           $orders = Order::where('user_id', Auth::user()->id)->get();
-
         }
 
         // $ordersArray = [];
