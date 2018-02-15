@@ -26,7 +26,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/cart';
+    protected $redirectTo = '/index';
 
     /**
      * Create a new controller instance.
@@ -48,6 +48,6 @@ class LoginController extends Controller
 
     protected function sendLoginResponse(Request $request)
     {
-      return redirect('/cart');
+      return redirect('/index');
     }
 }

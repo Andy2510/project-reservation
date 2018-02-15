@@ -9,7 +9,8 @@ class Order extends Model
   protected $fillable = [
     'user_id',
     'total_amount',
-    'tax_amount'
+    'tax_amount',
+    'payment_status'
   ];
 
   public function carts()

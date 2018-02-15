@@ -18,6 +18,7 @@ class CreateCart extends Migration
           $table->integer('user_id')->unsigned();
           $table->double('total_amount', 6,2);
           $table->double('tax_amount', 6,2);
+          $table->string('payment_status');
           $table->timestamps();
           $table->foreign('user_id')->references('id')->on('users');
           });

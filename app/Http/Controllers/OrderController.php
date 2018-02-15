@@ -8,6 +8,7 @@ use App\Cart;
 use App\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use WebToPay;
 
 class OrderController extends Controller
 {
@@ -50,16 +51,19 @@ class OrderController extends Controller
             return redirect('/login');
         }
         $post = $request->except('_token');
+        // 3 possible payment statuses available:
+        // payment_pending (laukiama apmokejimo)
+        // payment_confirmed (apmoketa)
+        // payment_canceled (atsauktas)
+
+
+        $post['payment_status'] = 'payment_pending';
         $order = Order::create($post);
 
         //update user_id field in carts table for successfuly ordered cart Items
-
-
         $cartItems = Cart::where('token', csrf_token())
         ->whereNull('order_id')
         ->get();
-
-
 
         foreach ($cartItems as $cartItem) {
           $cartItem->order_id = $order->id;
@@ -67,7 +71,29 @@ class OrderController extends Controller
           $cartItem->save();
         }
 
-        return redirect()->to('/index');
+
+
+
+        try {
+
+            $request = WebToPay::redirectToPayment(array(
+                'projectid'     => 111936,
+                'sign_password' => '07bac5d43b1c6a2583ff7ca8f6ac9715',
+                'orderid'       => $order->id,
+                'amount'        => $order->total_amount * 100,
+                'currency'      => 'EUR',
+                'country'       => 'LT',
+                'accepturl'     => url('/payment_success'),
+                'cancelurl'     => url('/payment_cancel'),
+                'callbackurl'   => url('/callback.php'),
+                'test'          => 1,
+            ));
+
+        } catch (WebToPayException $e) {
+            // handle exception
+        }
+
+        // return redirect()->to('/index');
     }
 
     /**
@@ -167,4 +193,36 @@ class OrderController extends Controller
     {
         //
     }
+
+    public function paymentSuccess() {
+
+      // $validate = WebToPay::validateAndParseData();
+      // dd($validate);
+      return view('paymentSuccess');
+
+    }
+
+    public function paymentCancel() {
+      return view('paymentCancel');
+    }
+
+    public function get_self_url() {
+    $s = substr(strtolower($_SERVER['SERVER_PROTOCOL']), 0,
+                strpos($_SERVER['SERVER_PROTOCOL'], '/'));
+
+    if (!empty($_SERVER["HTTPS"])) {
+        $s .= ($_SERVER["HTTPS"] == "on") ? "s" : "";
+    }
+
+    $s .= '://'.$_SERVER['HTTP_HOST'];
+
+    if (!empty($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] != '80') {
+        $s .= ':'.$_SERVER['SERVER_PORT'];
+    }
+
+    $s .= dirname($_SERVER['SCRIPT_NAME']);
+
+    return $s;
+    }
+
 }

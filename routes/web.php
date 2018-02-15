@@ -38,3 +38,6 @@ Route::get('/showReservation', 'ReservationController@show')->name('reservation_
 Route::get('/reservation_destroy/{id}', 'ReservationController@destroy')->name('reservation_destroy');
 
 Route::get('/order2', 'OrderController@index');
+
+Route::get('/payment_success', 'OrderController@paymentSuccess');
+Route::get('/payment_cancel', 'OrderController@paymentCancel');

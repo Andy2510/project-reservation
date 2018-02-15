@@ -122,7 +122,7 @@ class ReservationController extends Controller
     {
       $reservation = Reservation::findOrFail($id);
       $reservation->delete();
-//      return redirect()->route('index');
+      return redirect()->route('index');
     }
 
     protected function validator($data)
