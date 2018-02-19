@@ -4,11 +4,11 @@
 
       <h1 class="my-4">What's on our menu:</h1>
 
+      <h3>Total dishes: {{ $dishes->total() }}</h3>
       <!-- Portfolio Section -->
       <div class="row">
 
 @foreach ($dishes as $dish)
-
         <div class="col-lg-4 col-sm-6 portfolio-item">
           <div class="card h-100">
             <a href="#"><img class="card-img-top" src="{{ $dish->url }}" alt=""></a>
@@ -20,9 +20,9 @@
               <h5 class="text-center">{{ $dish->price}} €</h5>
             </div>
             <div class="card-footer">
-                <form method="POST" action="{{ route('addToCart') }}">
+                <form method="POST" action="{{ route('addToCart') }}" style="display:inline;">
                   {{ csrf_field() }}
-                    <input type="hidden" name="dish_id" value="{{ $dish->id }}">
+                    <input type="hidden" name="dish_id" value="{{ $dish->id }}" >
                     <button type="submit" class="btn btn-primary add-dish">Order</button>
                 </form>
               @if (Auth::check() && Auth::user()->isAdmin())
@@ -37,6 +37,13 @@
 @endforeach
       </div>
 
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 col-md-offset-6 col-lg-6 col-lg-6-offset col-xs-6 col-xs-offset-6">
+      {{ $dishes->links() }}
+    </div>
+  </div>
+</div>
 
   <div class="row">
     <div class="col-lg-2 col-sm-6">
@@ -52,30 +59,7 @@
   <br>
   <br>
 
-      <!-- Pagination -->
-      <!-- <ul class="pagination justify-content-center">
-        <li class="page-item">
-          <a class="page-link" href="#" aria-label="Previous">
-            <span aria-hidden="true">&laquo;</span>
-            <span class="sr-only">Previous</span>
-          </a>
-        </li>
-        <li class="page-item">
-          <a class="page-link" href="#">1</a>
-        </li>
-        <li class="page-item">
-          <a class="page-link" href="#">2</a>
-        </li>
-        <li class="page-item">
-          <a class="page-link" href="#">3</a>
-        </li>
-        <li class="page-item">
-          <a class="page-link" href="#" aria-label="Next">
-            <span aria-hidden="true">&raquo;</span>
-            <span class="sr-only">Next</span>
-          </a>
-        </li>
-      </ul> -->
+
 
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
