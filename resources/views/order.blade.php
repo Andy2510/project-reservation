@@ -65,6 +65,7 @@
               <th>Dish Name</th>
               <th>Price</th>
               <th>Created</th>
+              <th>Status</th>
             </tr>
           </thead>
           <tbody>
@@ -85,6 +86,13 @@
                 </td>
                 <td>{{ $order->total_amount }}</td>
                 <td>{{ $order->created_at }}</td>
+                <td><span>{{ $order->payment_status }}</span>
+                @if ($order->payment_status == 'payment_pending')
+                <a href=" {{ route('make_payment', $order->id) }} " class="btn btn-danger btn-sm btn-block">Pay</a>
+
+                @endif
+
+                </td>
             </tr>
               @endforeach
           </tbody>
