@@ -42,3 +42,5 @@ Route::get('/order2', 'OrderController@index');
 
 Route::get('/payment_success', 'OrderController@paymentSuccess');
 Route::get('/payment_cancel', 'OrderController@paymentCancel');
+
+Route::get('/make_payment/{id}', 'OrderController@payNow')->name('make_payment');

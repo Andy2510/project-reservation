@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\CerkauskasCartHelper;
+use App\Helpers\PayseraHelper;
 use Auth;
 use App\Cart;
 use App\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use WebToPay;
+
 
 class OrderController extends Controller
 {
@@ -18,8 +19,9 @@ class OrderController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-     public function __construct(CerkauskasCartHelper $cartHelper) {
+     public function __construct(CerkauskasCartHelper $cartHelper, PayseraHelper $payseraHelper) {
          $this->cartHelper = $cartHelper;
+         $this->payseraHelper = $payseraHelper;
          $this->middleware('auth');
      }
 
@@ -71,29 +73,8 @@ class OrderController extends Controller
           $cartItem->save();
         }
 
+        $this->payseraHelper->payseraPay($order->id, $order->total_amount);
 
-
-
-        try {
-
-            $request = WebToPay::redirectToPayment(array(
-                'projectid'     => 111936,
-                'sign_password' => '07bac5d43b1c6a2583ff7ca8f6ac9715',
-                'orderid'       => $order->id,
-                'amount'        => $order->total_amount * 100,
-                'currency'      => 'EUR',
-                'country'       => 'LT',
-                'accepturl'     => url('/payment_success'),
-                'cancelurl'     => url('/payment_cancel'),
-                'callbackurl'   => url('/callback.php'),
-                'test'          => 1,
-            ));
-
-        } catch (WebToPayException $e) {
-            // handle exception
-        }
-
-        // return redirect()->to('/index');
     }
 
     /**
@@ -161,7 +142,7 @@ class OrderController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for ertHelditing the specified resource.
      *
      * @param  \App\Order  $order
      * @return \Illuminate\Http\Response
@@ -196,33 +177,26 @@ class OrderController extends Controller
 
     public function paymentSuccess() {
 
-      // $validate = WebToPay::validateAndParseData();
-      // dd($validate);
-      return view('paymentSuccess');
+      $orderId = $this->payseraHelper->updatePaymentStatus();
 
+      Order::findOrFail($orderId)->update([
+        'payment_status' => 'payment_confirmed'
+      ]);
+
+      return view('paymentSuccess');
     }
 
     public function paymentCancel() {
+
       return view('paymentCancel');
     }
 
-    public function get_self_url() {
-    $s = substr(strtolower($_SERVER['SERVER_PROTOCOL']), 0,
-                strpos($_SERVER['SERVER_PROTOCOL'], '/'));
 
-    if (!empty($_SERVER["HTTPS"])) {
-        $s .= ($_SERVER["HTTPS"] == "on") ? "s" : "";
+    public function payNow($id) {
+      $orderAmount = Order::findOrFail($id)->total_amount;
+      $this->payseraHelper->payseraPay($id, $orderAmount);
+
     }
 
-    $s .= '://'.$_SERVER['HTTP_HOST'];
-
-    if (!empty($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] != '80') {
-        $s .= ':'.$_SERVER['SERVER_PORT'];
-    }
-
-    $s .= dirname($_SERVER['SCRIPT_NAME']);
-
-    return $s;
-    }
 
 }
